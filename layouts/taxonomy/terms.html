@@ -1,0 +1,26 @@
+{{ define "main" }}
+    {{- $taxonomies := .Data.Plural -}}
+    {{- $terms := .Data.Terms.ByCount -}}
+    {{- $type := .Type -}}
+
+    {{- if eq $taxonomies "tags" -}}
+        <div class="prose dark:prose-dark max-w-none">
+            <header>
+                {{/*  Somehow needs that extra <header>tag for prose to work  */}}
+                <h1>Tags</h1>
+            </header>
+        </div>
+        <div class="flex flex-wrap flex-row">
+        {{- range $.Site.Taxonomies.tags.ByCount -}}
+            <div class="mx-2">
+                <p>
+                    <a href="{{ .Page.RelPermalink }}"
+                        class="underline font-medium">
+                        {{ .Page.Title }}
+                    </a><sup>{{ .Count }}</sup>
+                </p>
+            </div>
+        {{- end -}}
+        </div>
+    {{- end -}}
+{{ end }}

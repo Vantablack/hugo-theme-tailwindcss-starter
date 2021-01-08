@@ -1,0 +1,44 @@
+{{ define "main" }}
+    <div class="prose dark:prose-dark max-w-none">
+        <header>
+            {{/*  Somehow needs that extra <header>tag for prose to work  */}}
+            <h1 class="mb-0">Tag</h1>
+            <h2 class="mt-0 inline-flex items-center">
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                </svg>
+                {{- .Title -}}
+            </h2>
+        </header>
+    </div>
+    {{ range .Pages }}
+        <article class="mb-4">
+            <header class="font-bold">
+                <a class="underline" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </header>
+            <section class="flex flex-row items-center opacity-75">
+                <p class="flex m-0">
+                    {{- .Date.Format "2 January 2006" -}}
+                </p>
+            </section>
+            {{- if .Params.tags -}}
+                <section class="flex flex-row items-center space-x-2 opacity-50">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                    </svg>
+                    {{- range .Params.tags -}}
+                        {{- if . | eq $.Title -}}
+                            <p class="font-bold">
+                                {{ . }}
+                            </p>
+                        {{- else -}}
+                            <a href="/tags/{{- . | urlize -}}" class="underline">
+                                {{ . }}
+                            </a>
+                        {{- end -}}
+                    {{- end -}}
+                </section>
+            {{- end -}}
+        </article>
+    {{ end }}
+{{ end }}

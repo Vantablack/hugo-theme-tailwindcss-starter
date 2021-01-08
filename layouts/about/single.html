@@ -1,6 +1,10 @@
 {{ define "main" }}
-<article class="text-gray-700 sm:mx-12 mb-16">
-    <h1 class="font-bold text-3xl text-gray-700">{{ .Title }}</h1>
-    {{ .Content }}
+<article class="prose dark:prose-dark max-w-none break-words m-auto">
+    <header class="mb-2">
+        <h1>{{ .Title }}</h1>
+    </header>
+    <section>
+        {{ .Content }}
+    </section>
 </article>
 {{ end }}

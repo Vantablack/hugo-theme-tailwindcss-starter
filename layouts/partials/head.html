@@ -1,7 +1,8 @@
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ block "title" . }}
+    <meta name="viewport" content="width=device-width, initial-scale=1 viewport-fit=cover" />
+    <title>
+        {{ block "title" . }}
     {{- .Title }} - {{ .Site.Title -}}
     {{ end }}</title>
     {{- if .Description }}
@@ -20,6 +21,19 @@
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
     {{ else }}
         {{- $styles := $styles| minify | fingerprint | resources.PostProcess -}}
-    <link rel="stylesheet" href="{{ $styles.Permalink }}" integrity="{{ $styles.Data.Integrity }}">
+    <link rel="stylesheet" href="{{ $styles.RelPermalink }}" crossorigin="anonymous">
     {{ end -}}
+
+    {{/*
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            console.log('dark theme selected');
+        document.querySelector('html').classList.add('dark');
+        } else {
+            console.log('white theme selected');
+            document.querySelector('html').classList.remove('dark')
+        }
+    </script>
+    */}}
 </head>

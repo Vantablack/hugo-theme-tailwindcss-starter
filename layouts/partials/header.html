@@ -1,51 +1,98 @@
-<header class="w-full px-4 pt-4">
-    {{/*  CSS functionality for menu toggle  */}}
-    <style type="text/css">
-        input#nav-toggle:checked~label#show-button {
-            display: none;
-        }
+<!-- This example requires Tailwind CSS v2.0+ -->
+<header class="w-full my-5" x-data="{ open: false }">
+  <div class="flex flex-col max-w-screen-xl mx-auto">
+    <div class="flex flex-row items-center justify-between">
+      <a class="text-lg font-bold rounded focus:outline-none" href="/">{{- .Site.Title -}}</a>
+      <div>
+        <!-- Dark Mode button -->
+        {{/*  <button onclick="toggleDarkMode()"
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <span class="sr-only">Toggle Dark Mode</span>
+          <!-- Heroicon name: moon -->
+          <svg
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>  */}}
+        <!-- Mobile menu button-->
+        <button @click="open = !open" :aria-expanded="open"
+                class="md:hidden inline-flex items-center justify-center p-1 rounded-lg focus:outline-none">
+          <span class="sr-only">Open main menu</span>
+          <!-- Icon when menu is closed. -->
+          <svg
+              :class="{'block': !open, 'hidden': open }"
+              class="block h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+          >
+              <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+              />
+          </svg>
+          <!-- Icon when menu is open. -->
+          <svg
+              :class="{'block': open, 'hidden': !open }"
+              class="hidden h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+          >
+              <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+              />
+          </svg>
+        </button>
+      </div>
+      <nav class="hidden md:block">
+        <div class="flex space-x-4">
+          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+          {{ range .Site.Menus.main }}
+          <a
+            class="px-3 py-2 rounded-md text-sm font-medium"
+            href="{{ .URL }}"
+          >
+            {{ if .Pre }} {{ $text := print .Pre | safeHTML }} {{ $text }}
+            {{ end }} {{ $text := print .Name | safeHTML }} {{ $text }}
+          </a>
+          {{ end }}
+        </div>
+      </nav>
+    </div>
+  </div>
 
-        input#nav-toggle:checked~label#hide-button {
-            display: flex;
-        }
+  <!--
+  Mobile menu, toggle classes based on menu state.
 
-        input#nav-toggle:checked~#nav-menu {
-            display: block;
-        }
-    </style>
-
-    <nav class="flex items-center justify-between flex-wrap">
-        <a href="{{ .Site.Home.Permalink }}" class="flex items-center text-gray-700 font-bold">
-            {{ .Site.Title }}
-        </a>
-
-        <input id="nav-toggle" type=checkbox class="hidden">
-        <label id="show-button" for="nav-toggle"
-            class="flex items-center block sm:hidden text-gray-500 hover:text-blue-500">
-            <svg class="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <title>Menu Open</title>
-                <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z" />
-            </svg>
-        </label>
-        <label id="hide-button" for="nav-toggle" class="flex items-center hidden text-gray-700 hover:text-blue-500">
-            <svg class="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <title>Menu Close</title>
-                <polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
-                    transform="rotate(45 10 10)" />
-            </svg>
-        </label>
-
-        <ul id="nav-menu" class="sm:flex w-full sm:w-auto hidden sm:block mt-2 sm:mt-0 sm:space-x-2">
-            {{ with .Site.GetPage "/about" }}
-            <li>
-                <a href="{{ .Permalink }}" class="text-gray-500 hover:text-blue-400">{{ .Title }}</a>
-            </li>
-            {{ end }}
-            {{ range .Site.Sections }}
-            <li>
-                <a href="{{ .Permalink }}" class="text-gray-500 hover:text-blue-400">{{ .Title }}</a>
-            </li>
-            {{ end }}
-        </ul>
+  Menu open: "block", Menu closed: "hidden"
+  -->
+  <div :class="{'block': open, 'hidden': !open }" class="hidden md:hidden">
+    <nav class="px-2 pt-2 pb-3 space-y-1">
+      <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+      {{ range .Site.Menus.main }}
+      <a
+        class="block px-3 py-2 rounded-md text-base font-medium focus:outline-none"
+        href="{{ .URL }}">
+          {{ if .Pre }} {{ $text := print .Pre | safeHTML }} {{ $text }}
+          {{ end }} {{ $text := print .Name | safeHTML }} {{ $text }}
+      </a>
+      {{ end }}
     </nav>
+  </div>
 </header>

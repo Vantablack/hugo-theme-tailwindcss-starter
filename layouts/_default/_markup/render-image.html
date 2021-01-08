@@ -1,0 +1,20 @@
+{{ $figcap := or .Title .Text }}
+{{ $caption := or .Text " " }}
+
+{{- if eq $figcap $caption -}}
+    {{ $caption = " " }}
+{{- end -}}
+
+{{- if $figcap -}}
+    <figure>
+        <img class="object-contain w-full shadow-md" src="{{- .Destination -}}" alt="{{- $figcap -}}">
+        <figcaption class="text-center">
+            {{- $figcap | safeHTML -}}
+        </figcaption>
+    </figure>
+{{- else -}}
+    <figure>
+
+    </figure>
+    {{- dict "Src" .Destination "Title" (path.Base .Destination) "Resources" .Page.Resources -}}
+{{- end -}}

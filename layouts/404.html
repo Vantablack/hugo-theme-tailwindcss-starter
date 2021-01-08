@@ -1,3 +1,9 @@
 {{ define "main" }}
-    <p>404 - page not found</p>
+    <section class="prose dark:prose-dark max-w-none break-words m-auto">
+        <h1 class="mb-0">404</h1>
+        <h2 class="my-0">Page not found</h2>
+        <h3 class="mt-0">
+            <a href="{{- "/" | relURL -}}">Return to homepage</a>
+        </h3>
+    </section>
 {{ end }}

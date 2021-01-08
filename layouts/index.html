@@ -1,6 +1,33 @@
-{{ define "main" }}
-<article class="text-center text-gray-700">
-    <h1 class="font-serif font-extralight text-5xl text-gray-500">{{ .Title }}</h1>
-    {{ .Content }}
-</article>
-{{ end }}
+{{- define "main" -}}
+    {{ range ( where .Site.RegularPages "Type" "posts" ) }}
+        <article class="mb-4">
+            <header class="font-bold">
+                <a class="underline" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </header>
+            <section class="flex flex-row items-center space-x-2 opacity-75">
+                <svg class="flex h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p>
+                    {{ .Date.Format "2 January 2006" }}
+                </p>
+            </section>
+            {{- if .Params.tags -}}
+                <section class="flex flex-row items-center space-x-2 opacity-50">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                    </svg>
+                    {{- range .Params.tags -}}
+                        <a href="/tags/{{- . | urlize -}}" class="underline">
+                            {{ . }}
+                        </a>
+                    {{- end -}}
+                </section>
+            {{- end -}}
+        </article>
+    {{- end -}}
+
+    {{/*  {{ range .Pages }}
+        {{ .Render "list"}}
+    {{ end }}  */}}
+{{- end -}}
