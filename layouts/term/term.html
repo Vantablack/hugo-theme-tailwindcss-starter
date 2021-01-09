@@ -12,25 +12,28 @@
         </header>
     </div>
     {{ range .Pages }}
-        <article class="mb-4">
-            <header class="font-bold">
-                <a class="underline" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <article class="mb-4 prose dark:prose-dark">
+            <header>
+                <a class="underline font-bold text-primary dark:text-primary-dark" href="{{ .RelPermalink }}">{{ .Title }}</a>
             </header>
-            <section class="flex flex-row items-center opacity-75">
-                <p class="flex m-0">
-                    {{- .Date.Format "2 January 2006" -}}
+            <section class="flex flex-row items-center space-x-2 opacity-75">
+                <svg class="flex h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p class="m-0">
+                    {{ .Date.Format "2 January 2006" }}
                 </p>
             </section>
             {{- if .Params.tags -}}
-                <section class="flex flex-row items-center space-x-2 opacity-50">
+                <section class="flex flex-row items-center space-x-2 opacity-60">
                     <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
                     </svg>
                     {{- range .Params.tags -}}
                         {{- if . | eq $.Title -}}
-                            <p class="font-bold">
+                            <span class="font-bold">
                                 {{ . }}
-                            </p>
+                            </span>
                         {{- else -}}
                             <a href="/tags/{{- . | urlize -}}" class="underline">
                                 {{ . }}
