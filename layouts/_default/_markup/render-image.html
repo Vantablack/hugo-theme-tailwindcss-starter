@@ -14,7 +14,6 @@
     </figure>
 {{- else -}}
     <figure>
-
+        <img class="object-contain w-full shadow-md" src="{{- .Destination -}}">
     </figure>
-    {{- dict "Src" .Destination "Title" (path.Base .Destination) "Resources" .Page.Resources -}}
 {{- end -}}

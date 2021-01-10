@@ -1,8 +1,8 @@
 {
- "author": "dirkolbrich \u003cgithub@dirkolbrich.de\u003e",
+ "author": "dirkolbrich <github@dirkolbrich.de>",
  "browserslist": [
   "last 1 version",
-  "\u003e 1%",
+  "> 1%",
   "maintained node versions",
   "not dead"
  ],

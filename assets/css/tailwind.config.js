@@ -23,6 +23,9 @@ module.exports = {
         DEFAULT: {
           css: {
             color: theme("colors.primary"),
+            figcaption: {
+              color: theme("colors.secondary"),
+            },
             // a: {
             //   color: theme("colors.primary"),
             //   "&:hover": {
@@ -35,16 +38,16 @@ module.exports = {
           css: {
             color: theme("colors.primary-dark"),
             a: {
-              color: theme("colors.secondary-dark"),
+              color: theme("colors.primary-dark"),
               // "&:hover": {
               //   color: theme("colors.secondary-hover-dark"),
               // },
             },
             "a code": {
-              color: theme("colors.secondary-dark"),
-              "&:hover": {
-                color: theme("colors.secondary-hover-dark"),
-              },
+              color: theme("colors.primary-dark"),
+              // "&:hover": {
+              //   color: theme("colors.secondary-hover-dark"),
+              // },
             },
             h1: {
               color: theme("colors.primary-dark"),
@@ -75,6 +78,15 @@ module.exports = {
             },
             blockquote: {
               color: theme("colors.primary-dark"),
+            },
+            thead: {
+              color: theme("colors.primary-dark"),
+            },
+            "thead th": {
+              color: theme("colors.primary-dark"),
+            },
+            "figure figcaption": {
+              color: theme("colors.secondary-dark"),
             },
           },
         },

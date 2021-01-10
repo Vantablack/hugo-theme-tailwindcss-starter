@@ -1,15 +1,27 @@
 {{ define "main" }}
 <article class="prose dark:prose-dark max-w-none break-words m-auto">
     <header class="mb-2">
-        <h2 class="mb-0 mt-0">{{ .Title }}</h1>
-        <div class="flex flex-row items-center mt-1 opacity-75 space-x-2">
-            <svg class="flex h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <p class="m-0">
-                {{ .Date.Format "2 January 2006" }}
-            </p>
-        </div>
+        <h2 class="mb-0 mt-0">{{ .Title }}</h2>
+        <section class="opacity-75">
+            <div class="flex flex-row flex-wrap items-center mt-1 space-x-2">
+                <svg class="flex h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p class="m-0">
+                    {{ .Date.Format "2 January 2006" }}
+                </p>
+            </div>
+            {{ if ne .Params.Lastmod .Date }}
+            <div class="flex flex-row flex-wrap items-center mt-1 space-x-2">
+                <svg class="flex h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                <p class="m-0">
+                    Edited: {{ .Page.Lastmod.Format "2 January 2006" }}
+                </p>
+            </div>
+            {{- end -}}
+        </section>
         {{- if .Params.tags -}}
             <section class="flex flex-row items-center space-x-2 opacity-60">
                 <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
